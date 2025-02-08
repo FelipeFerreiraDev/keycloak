@@ -8,8 +8,8 @@ services:
     ports:
       - 8080:8080
     environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_DB=mysql
       - KC_DB_URL=jdbc:mysql://db:3306/keycloak
       - KC_DB_USERNAME=root
@@ -27,6 +27,6 @@ services:
       - MYSQL_DATABASE=keycloak
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
-      interval: 10s
+      interval: 5s
       timeout: 10s
       retries: 3
