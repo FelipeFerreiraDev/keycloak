@@ -15,3 +15,6 @@ Access Token: Esse token é usado para acessar recursos protegidos. Quando você
 O campo "Web Origins" funciona como uma configuração de CORS, onde você pode definir quais domínios têm permissão para fazer requisições ao seu backend autenticado pelo Keycloak. Se estiver em dúvida, você pode usar "*" para permitir qualquer origem (não recomendado para produção).
 
 O Root URL é um atalho para facilitar a configuração de redirecionamentos e acessos seguros dentro do Keycloak, especialmente quando há múltiplas rotas e domínios. Embora não seja obrigatório, ele pode ajudar a padronizar a configuração e evitar erros.
+
+## Nonce (Number used once), bloquear replay attacks - F0873 e F0874
+O nonce é um número aleatório usado apenas uma vez. Ele é usado para evitar ataques de repetição, onde um invasor tenta reutilizar um token de autenticação para acessar recursos protegidos.
