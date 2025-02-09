@@ -75,10 +75,6 @@ app.get('/callback', async (req, res) => {
     return res.redirect("/admin");
   }
 
-
-  console.log("Query state:", req.query.state, typeof req.query.state);
-  //@ts-expect-error - type mismatch
-  console.log("Session state:", req.session.state, typeof req.session.state);
   //@ts-expect-error - type mismatch
   if(String(req.query.state) !== String(req.session.state)) {
     //poderia redirecionar para o login em vez de mostrar o erro
@@ -106,21 +102,16 @@ app.get('/callback', async (req, res) => {
 
   const result = await response.json();
 
-  console.log(result);
+  console.log(result.access_token);
   const payloadAccessToken = jwt.decode(result.access_token) as any;
   const payloadRefreshToken = jwt.decode(result.refresh_token) as any;
   const payloadIdToken = jwt.decode(result.id_token) as any;
 
-  if (  
-    //@ts-expect-error - type mismatch
-    payloadAccessToken!.nonce !== req.session.nonce ||
-    //@ts-expect-error - type mismatch
-    payloadRefreshToken.nonce !== req.session.nonce ||
-    //@ts-expect-error - type mismatch
-    payloadIdToken.nonce !== req.session.nonce
-  ) {
+  //@ts-expect-error - type mismatch
+  if (payloadIdToken.nonce !== req.session.nonce) {
     return res.status(401).json({ message: "Unauthenticated" });
   }
+  
 
   console.log(payloadAccessToken);
   //@ts-expect-error - type mismatch
